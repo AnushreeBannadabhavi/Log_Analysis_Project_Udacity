@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import psycopg2
 
 DB_NAME = "news"
@@ -36,9 +38,12 @@ query3 = """
 
 
 def connect():
-    db = psycopg2.connect(database=DB_NAME)
-    cursor = db.cursor()
-    return db, cursor
+        try:
+                db = psycopg2.connect(database=DB_NAME)
+                cursor = db.cursor()
+                return db, cursor
+        except psycopg2.Error as e:
+                print("Connection to the database failed with error " + str(e))
 
 
 def get_query_results(query):
